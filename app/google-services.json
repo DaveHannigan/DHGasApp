@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "14985541468",
+    "firebase_url": "https://workdatabase-dhgas.firebaseio.com",
+    "project_id": "workdatabase-dhgas",
+    "storage_bucket": "workdatabase-dhgas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14985541468:android:9400c3a812fb2cb2",
+        "android_client_info": {
+          "package_name": "com.example.dave.jobsdatabase5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14985541468-plbu9drcnglojukoq2ndhrcmdrs7bpst.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dave.jobsdatabase5",
+            "certificate_hash": "09c4f5efb4258f52798f64822139c610dd4a6f58"
+          }
+        },
+        {
+          "client_id": "14985541468-ksvmfts1o51fjj7jnffn0n2lsj761ksc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdiZPVdXWecjyoO37HujutqzSl_zouhE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14985541468-ksvmfts1o51fjj7jnffn0n2lsj761ksc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14985541468:android:4899982afe6148ad6d3399",
+        "android_client_info": {
+          "package_name": "com.example.dhgas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14985541468-ksvmfts1o51fjj7jnffn0n2lsj761ksc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdiZPVdXWecjyoO37HujutqzSl_zouhE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14985541468-ksvmfts1o51fjj7jnffn0n2lsj761ksc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14985541468:android:d379bf9ef2cd9b2f6d3399",
+        "android_client_info": {
+          "package_name": "com.example.jobtrackingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14985541468-ksvmfts1o51fjj7jnffn0n2lsj761ksc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdiZPVdXWecjyoO37HujutqzSl_zouhE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14985541468-ksvmfts1o51fjj7jnffn0n2lsj761ksc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
