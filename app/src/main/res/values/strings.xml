@@ -3,4 +3,6 @@
     <string name="login_or_register">Login or register</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="enter_email_address">enter email address</string>
+    <string name="enter_password">enter password</string>
 </resources>

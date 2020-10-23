@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editEmail"
+        android:layout_marginTop="@dimen/topMargin"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/startMargin"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="@dimen/startMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="@string/enter_email_address"
+        android:inputType="textEmailAddress"
+        />
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editPassword"
+        android:layout_marginTop="@dimen/topMargin"
+        app:layout_constraintTop_toBottomOf="@id/editEmail"
+        app:layout_constraintStart_toStartOf="@id/editEmail"
+        app:layout_constraintEnd_toEndOf="@id/editEmail"
+        android:hint="@string/enter_password"
+        android:inputType="textPassword"
+        />
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonRegister"
+        android:layout_marginTop="@dimen/topMargin"
+        app:layout_constraintTop_toBottomOf="@id/editPassword"
+        app:layout_constraintStart_toStartOf="@id/editEmail"
+        app:layout_constraintEnd_toEndOf="@id/editEmail"
+        android:text="@string/register"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
