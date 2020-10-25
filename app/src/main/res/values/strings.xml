@@ -5,4 +5,6 @@
     <string name="register">Register</string>
     <string name="enter_email_address">enter email address</string>
     <string name="enter_password">enter password</string>
+    <string name="customers">Customers</string>
+    <string name="properties">Properties</string>
 </resources>

@@ -6,4 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".DashboardActivity">
 
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCustomers"
+        android:layout_marginTop="@dimen/topMargin"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/startMargin"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="@dimen/startMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/customers"
+        android:textAlignment="center"
+        />
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonProperties"
+        android:layout_marginTop="@dimen/topMargin"
+        app:layout_constraintTop_toBottomOf="@id/buttonCustomers"
+        app:layout_constraintStart_toStartOf="@id/buttonCustomers"
+        app:layout_constraintEnd_toEndOf="@id/buttonCustomers"
+        android:textAlignment="center"
+        android:text="@string/properties"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.dhgas
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -27,11 +28,16 @@ class RegisterActivity : AppCompatActivity() {
                 .addOnCompleteListener(this, OnCompleteListener {task ->
                     if (task.isSuccessful){
                         Toast.makeText(this, "User created", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, DashboardActivity::class.java)
+                        startActivity(intent)
                     }else{
                         Toast.makeText(this, "User creation failed ${task.exception}", Toast.LENGTH_LONG).show()
                     }
 
                 })
+        }
+        binding.buttonCancel.setOnClickListener {
+            finish()
         }
     }
 }

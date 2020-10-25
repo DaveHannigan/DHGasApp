@@ -40,5 +40,16 @@
         app:layout_constraintEnd_toEndOf="@id/editEmail"
         android:text="@string/register"
         />
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCancel"
+        android:layout_marginTop="@dimen/topMargin"
+        app:layout_constraintTop_toBottomOf="@id/buttonRegister"
+        app:layout_constraintStart_toStartOf="@id/editEmail"
+        app:layout_constraintEnd_toEndOf="@id/editEmail"
+        android:text="Cancel"
+        android:textAlignment="center"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
