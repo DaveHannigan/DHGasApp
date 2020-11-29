@@ -13,6 +13,11 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val toolbar = binding.registerToolbar
+        toolbar.title = getString(R.string.app_name)
+        setSupportActionBar(toolbar)
+
         val mAuth = FirebaseAuth.getInstance()
 
         binding.buttonRegister.setOnClickListener {

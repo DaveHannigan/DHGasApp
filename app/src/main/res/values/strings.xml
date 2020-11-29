@@ -7,4 +7,30 @@
     <string name="enter_password">enter password</string>
     <string name="customers">Customers</string>
     <string name="properties">Properties</string>
+    <string-array name="title">
+        <item>Mr</item>
+        <item>Mrs</item>
+        <item>Ms</item>
+        <item>Miss</item>
+        <item>Dr</item>
+        <item>Rev</item>
+        <item>Sir</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_name">First name</string>
+    <string name="surname">Surname</string>
+    <string name="phone_number">Phone number</string>
+    <string name="billing_address_1">Billing address 1</string>
+    <string name="billing_address_2">billing_address_2</string>
+    <string name="billing_address_3">billing_address_3</string>
+    <string name="city_or_town">City or Town</string>
+    <string name="county">County</string>
+    <string name="postcode">Postcode</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="import_customers_from_csv_file">Import customers from CSV file</string>
+    <string name="new_customer">New Customer</string>
+    <string name="delete_customer">Delete customer</string>
+    <string name="set_billing_address_as_job_address">Set billing address as job address</string>
 </resources>

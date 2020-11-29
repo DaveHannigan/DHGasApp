@@ -1,9 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    >
+ <androidx.appcompat.widget.Toolbar
+     android:id="@+id/customer_toolbar"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+     android:background="@color/dark_blue"/>
+
+
+<ScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CustomerActivity">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <SearchView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchCustomers"
+        android:layout_marginTop="@dimen/topMargin"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/startMargin"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="@dimen/startMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/listCustomers"
+        android:layout_marginTop="@dimen/topMargin"
+        app:layout_constraintTop_toBottomOf="@id/searchCustomers"
+        app:layout_constraintStart_toStartOf="@id/searchCustomers"
+        app:layout_constraintEnd_toEndOf="@id/searchCustomers"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+</LinearLayout>

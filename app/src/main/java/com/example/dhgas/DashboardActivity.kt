@@ -1,5 +1,6 @@
 package com.example.dhgas
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -12,21 +13,16 @@ class DashboardActivity : AppCompatActivity() {
         val binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val db = FirebaseFirestore.getInstance()
-        db.collection("Customer")
-                .get()
-            .addOnSuccessListener {task->
-                        for (doclist in task){}
+        val toolbar = binding.dashboardToolbar
+        toolbar.title = getString(R.string.app_name)
+        setSupportActionBar(toolbar)
 
-            }
-                .addOnCompleteListener(this) {task ->
-                    if (task.isSuccessful){
+        binding.buttonCustomers.setOnClickListener {
+            val intent = Intent(this, CustomerActivity::class.java)
+            startActivity(intent)
+        }
 
-                        Toast.makeText(this, "Task successful", Toast.LENGTH_LONG).show()
-                    }else{
-                        Toast.makeText(this, "Task failed ${task.exception}", Toast.LENGTH_LONG).show()
-                    }
-                }
+
                 
 
 

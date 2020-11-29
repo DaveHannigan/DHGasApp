@@ -2,4 +2,5 @@
 <resources>
     <dimen name="topMargin">10dp</dimen>
     <dimen name="startMargin">10dp</dimen>
+    <dimen name="bottomMargin">5dp</dimen>
 </resources>

@@ -3,15 +3,23 @@ package com.example.dhgas
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Toast
 import com.example.dhgas.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val toolbar = binding.loginToolbar
+        toolbar.title = getString(R.string.app_name)
+        setSupportActionBar(toolbar)
+
         val mAuth = FirebaseAuth.getInstance()
 
         binding.editEmail.setText("dave@dhgasltd.co.uk")
