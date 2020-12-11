@@ -156,7 +156,6 @@ class CustomerActivity : AppCompatActivity(), CustomerFragment.customerInterface
                     addCategory(Intent.CATEGORY_OPENABLE)
                 }
                 startActivityForResult(intent, PICK_TXT_FILE)
-                Log.i("menu", "you clicked to import customers")
             }
 
             var fileName: Uri = Uri.parse("")
@@ -326,7 +325,6 @@ class CustomerAdapter(context: Context, customers: ArrayList<Customer>):
                 b.putBoolean("jobAddress", jobAddress.isChecked)
                 b.putString("jobAddressId", jobAddressId.text.toString())
 
-
                 dialog.arguments = b
                 dialog.show(activity.supportFragmentManager, "frag")
             }
@@ -401,7 +399,6 @@ class CustomerFragment: DialogFragment(){
         val jobAddress = args.getBoolean("jobAddress", false)
         cust1.jobAddress = jobAddress
         val jobAddressId = args.getString("jobAddressId", "")
-        Log.i("saveAdd", "job address id is $jobAddressId")
 
         val titles = resources.getStringArray(R.array.title)
         val index = titles.indexOf(title)
@@ -450,7 +447,7 @@ class CustomerFragment: DialogFragment(){
         val checkboxSet = rootView.findViewById<CheckBox>(R.id.checkbox)
         checkboxSet.isChecked = jobAddress
         val jobAddressIdSet = rootView.findViewById<TextView>(R.id.jobAddressId)
-        Log.i("saveAdd", "jobAddressIdSet is $jobAddressIdSet")
+        jobAddressIdSet.text = jobAddressId
 
 
         deleteButton.setOnClickListener {
@@ -474,7 +471,7 @@ class CustomerFragment: DialogFragment(){
         val save = rootView.findViewById<Button>(R.id.save)
         save.setOnClickListener {
             val data = hashMapOf<String, Any>()
-            if (custId == ""){
+            if (custId == "") {
                 data["title"] = spinner.selectedItem.toString().trim()
                 cust1.title = spinner.selectedItem.toString().trim()
 
@@ -523,10 +520,10 @@ class CustomerFragment: DialogFragment(){
                 data["job_address"] = checkboxSet.isChecked
                 cust1.jobAddress = checkboxSet.isChecked
 
-                data["job_address_id"] = blank(jobAddressIdSet.text.toString()).also { cust1.jobAddressId = it }
-                //cust1.jobAddressId = jobAddressIdSet.text.toString()
+                data["job_address_id"] = blank(jobAddressIdSet.text.toString())//.also { cust1.jobAddressId = it }
+                cust1.jobAddressId = blank(jobAddressIdSet.text.toString())
 
-                if (checkboxSet.isChecked){
+                if (checkboxSet.isChecked) {
                     val dataAddress1 = hashMapOf<String, Any>(
                             "customer" to cust1.custId,
                             "address_1" to cust1.billing_address_1,
@@ -536,32 +533,34 @@ class CustomerFragment: DialogFragment(){
                             "county" to cust1.billing_address_county,
                             "postcode" to cust1.billing_address_postcode
                     )
-                    Log.i("saveAdd", "Adress should now save")
                     db.collection("JobAddress")
                             .add(dataAddress1)
-                            .addOnSuccessListener { docRef -> cust1.jobAddressId = docRef.id
+                            .addOnSuccessListener { docRef ->
+                                cust1.jobAddressId = docRef.id
                                 data["job_address_id"] = docRef.id
                                 db.collection("Customer")
                                         .add(data)
-                                        .addOnSuccessListener { docRef -> dataAddress1["customer"] = docRef.id
-                                        db.collection("JobAddress").document(cust1.jobAddressId)
-                                                .update(dataAddress1)}
+                                        .addOnSuccessListener { docRef ->
+                                            dataAddress1["customer"] = docRef.id
+                                            db.collection("JobAddress").document(cust1.jobAddressId)
+                                                    .update(dataAddress1)
+                                        }
 
-                                Log.i("saveA", "address id id ${docRef.id}")
                                 newCustomer.cust(cust1, "new")
                             }
+                } else {
+
+                    db.collection("Customer")
+                            .add(data)
+                            .addOnSuccessListener { documentReference ->
+                                cust1.custId = documentReference.id
+                                newCustomer.cust(cust1, "new")
+                            }
+
+                    dismiss()
                 }
-/*
-                db.collection("Customer")
-                        .add(data)
-                        .addOnSuccessListener { documentReference -> cust1.custId = documentReference.id
-                            Log.i("saveAdd", "checkbox is ${checkboxSet.isChecked}")
-                        }
 
- */
-                dismiss()
-
-            }else {
+            } else {
                 if (title != spinner.selectedItem.toString()) {
                     data["title"] = spinner.selectedItem.toString().trim()
                     cust1.title = data["title"].toString()
@@ -616,6 +615,7 @@ class CustomerFragment: DialogFragment(){
                     data["billing_address_2"] = address2Set.text.toString().trim()
                     cust1.billing_address_2 = address2Set.text.toString().trim()
                     customerBillingAddressAltered = true
+                    Log.i("changeAdd", "customer billing address altered is $customerBillingAddressAltered")
                 }
                 if (address3 != address3Set.text.toString().trim()) {
                     data["billing_address_3"] = address3Set.text.toString().trim()
@@ -638,29 +638,23 @@ class CustomerFragment: DialogFragment(){
                     customerBillingAddressAltered = true
                 }
 
-                if (jobAddress != checkboxSet.isChecked){
+                if (jobAddress != checkboxSet.isChecked) {
                     data["job_address"] = checkboxSet.isChecked
                     cust1.jobAddress = checkboxSet.isChecked
                     customerAltered = true
                 }
-            }
+                data["job_address_id"] = jobAddressIdSet.text.toString().also { cust1.jobAddressId = it }
 
-                if (custId != "" && !customerAltered){
+
+                if (!customerAltered && !customerBillingAddressAltered) {
                     dismiss()
                     return@setOnClickListener
                 }
 
-                    Log.i("saveAdd", "cust id is $custId & customer altered is $customerAltered")
 
-                if (custId != "" && customerAltered) {
-                    Log.i("saveAdd", "in if()")
-                    db.collection("Customer").document(custId)
-                            .update(data)
-                    newCustomer.cust(cust1, "update")
-                    Log.i("saveAdd", "checkbox is ${checkboxSet.isChecked} and !cust1.jobAddress is " +
-                            "${!jobAddress}")
-                    if(checkboxSet.isChecked && !jobAddress){
-                        Log.i("saveAddress", "value of cust add 2 is ${cust1.billing_address_2}")
+                if (customerAltered && !customerBillingAddressAltered) {
+
+                    if (checkboxSet.isChecked && !jobAddress && jobAddressIdSet.text == "") {
                         val dataAddress = hashMapOf<String, Any>(
                                 "customer" to cust1.custId,
                                 "address_1" to cust1.billing_address_1,
@@ -671,22 +665,118 @@ class CustomerFragment: DialogFragment(){
                                 "postcode" to cust1.billing_address_postcode
                         )
                         db.collection("JobAddress").add(dataAddress)
-            Log.i("saveAddress", "you chose to save address")
-
+                                .addOnSuccessListener { docRef ->
+                                    data["job_address_id"] = docRef.id
+                                    cust1.jobAddressId = docRef.id
+                                    db.collection("Customer").document(custId)
+                                            .update(data)
+                                    newCustomer.cust(cust1, "update")
+                                    dismiss()
+                                    return@addOnSuccessListener
+                                }
                     }
 
-                }else{
+                    db.collection("Customer").document(custId)
+                            .update(data)
+                    newCustomer.cust(cust1, "update")
+                    dismiss()
+                    return@setOnClickListener
 
                 }
+            }
+            //}
+
+            if (customerBillingAddressAltered) {
+                Log.i("changeAdd", "in billing address altered")
+                val dialogBuilder = AlertDialog.Builder(context)
+                dialogBuilder.setMessage("You have changed the billing address which is linked to a job address." +
+                        "Do you wish to update the existing job address, create a new job address or leave as billing address only")
+                        .setCancelable(true)
+                        .setPositiveButton("Create new job address") { dialog, id ->
+                            val dataAddress = hashMapOf<String, Any>(
+                                    "customer" to cust1.custId,
+                                    "address_1" to cust1.billing_address_1,
+                                    "address_2" to cust1.billing_address_2,
+                                    "address_3" to cust1.billing_address_3,
+                                    "city" to cust1.billing_address_city,
+                                    "county" to cust1.billing_address_county,
+                                    "postcode" to cust1.billing_address_postcode
+                            )
+                            db.collection("JobAddress").add(dataAddress)
+                                    .addOnSuccessListener { docRef ->
+                                        data["job_address_id"] = docRef.id
+                                        data["job_address"] = true
+                                        cust1.jobAddressId = docRef.id
+                                        cust1.jobAddress = true
+                                        db.collection("Customer").document(custId)
+                                                .update(data)
+                                        newCustomer.cust(cust1, "update")
+                                        return@addOnSuccessListener
+                                    }
+                                     dismiss()
+                                     return@setPositiveButton
+
+                        }
+                        .setNeutralButton("Update original job address") { dialog, id ->
+                            val dataAddress = hashMapOf<String, Any>(
+                                    "customer" to cust1.custId,
+                                    "address_1" to cust1.billing_address_1,
+                                    "address_2" to cust1.billing_address_2,
+                                    "address_3" to cust1.billing_address_3,
+                                    "city" to cust1.billing_address_city,
+                                    "county" to cust1.billing_address_county,
+                                    "postcode" to cust1.billing_address_postcode
+                            )
+                            if (cust1.jobAddressId != "") {
+
+                                db.collection("JobAddress").document(cust1.jobAddressId)
+                                        .update(dataAddress)
+                                        .addOnSuccessListener { docRef ->
+                                            db.collection("Customer").document(custId)
+                                                    .update(data)
+                                            newCustomer.cust(cust1, "update")
+                                            return@addOnSuccessListener
+                                        }
+                            }else{
+                                Log.i("saveAdd", "context is $context")
+                                Toast.makeText(context,"Cannot update job address as no existing job address for " +
+                                        "this customer please tick box to save billing address as job address. Changes will be saved " +
+                                        "as billing address only",
+                                Toast.LENGTH_LONG).show()
+                                data["job_address"] = false
+                                data["job_address_id"] = ""
+                                cust1.jobAddress = false
+                                cust1.jobAddressId = ""
+                                db.collection("Customer").document(custId)
+                                        .update(data)
+                                newCustomer.cust(cust1, "update")
+                            }
+                            dismiss()
+                            return@setNeutralButton
+
+
+                        }
+                        .setNegativeButton("Leave as billing address only") { dialog, _ ->
+                            data["job_address"] = false
+                            cust1.jobAddress = false
+                            data["job_address_id"] =""
+                            cust1.jobAddressId = ""
+                            db.collection("Customer").document(custId)
+                                .update(data)
+                            newCustomer.cust(cust1, "update")
+                            dismiss()
+                            return@setNegativeButton
+                        }
+                val alert = dialogBuilder.create()
+                alert.setTitle("Choose address option")
+                alert.show()
                 dismiss()
+                return@setOnClickListener
 
-
-
+            }
         }
         fun saveAddress(address: ArrayList<String>){
         }
     return rootView
     }
-
-
 }
